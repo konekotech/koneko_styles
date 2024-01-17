@@ -1,2 +1,24 @@
 \usepackage{oreilly_doc}
 \renewcommand{\prechaptername}{}
+
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter 章\space#1}{}}
+
+% カスタムページヘッダーの設定
+\pagestyle{fancy}
+
+\fancypagestyle{oreilly-style}{%
+  \fancyhf{} % 既存のヘッダー/フッターをクリア
+  \setlength{\topmargin}{-0.5in}
+
+  \fancyhead[LE]{\setsansfont{Futura}\scalebox{0.8}[1.1]{\bf{\sf{\thepage}}}\setsansfont{Helvetica}\sf{\hspace{8mm}\textcolor{black}{\hspace{2mm}\rule[-0.8ex]{0.5mm}{0.7cm}}\hspace{2mm}\leftmark}}
+  \fancyhead[RO]{\sf{\rightmark\hspace{2mm}\textcolor{black}{\hspace{2mm}\rule[-0.8ex]{0.5mm}{0.6cm}}\hspace{8mm}}\setsansfont{Futura}\scalebox{0.8}[1.1]{\bf{\sf{\thepage}}}\setsansfont{Helvetica}}
+}
+
+% chapterの見出しフォントを太字かつサンセリフ体に変更
+\titleformat{\chapter}[display]
+{\sffamily\HUGE\bfseries\raggedleft}
+{\textcolor{gray}{\chaptertitlename\ \thechapter 章}}
+{20pt}
+{\HUGE}[\thispagestyle{oreilly-style}]
+
+\titlespacing{\chapter}{10pt}{15pt}{100pt}
