@@ -1,0 +1,290 @@
+%こねこ。のテンプレート（ver 2.3）
+%Copyright © 2021-2022 こねこ。 All Rights Reserved.
+%General
+%%%%%%%%%%%%%%%%%%%%General%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsthm, amssymb, amsmath, ascmac, bm, color, comment, here, url, ulem, mathrsfs}
+\usepackage[dvipdfmx]{graphicx}
+\renewcommand\UrlFont{\rmfamily}
+\usepackage{pdfpages}
+%%%%%%%ドキュメントのレイアウト（デフォルトでOFF）%%%%%%%
+%ドキュメントの記述部の横幅などを細かく変えるときに使います．
+
+\begin{comment}
+\setlength{\textwidth}{165mm}
+\setlength{\marginparwidth}{40mm}
+\setlength{\textheight}{225mm}
+\setlength{\topmargin}{-5mm}
+\setlength{\oddsidemargin}{-3.5mm}
+\end{comment}
+
+%%%%%%%%%%%%%%%%%%%%%%%雑部%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{enumerate}
+%四角番号
+\newcommand{\shikaku}[1]{\setlength{\fboxrule}{1.5pt} \setlength{\fboxsep}{0.2cm}{\LARGE\makebox[1zw]{\Large \textsf{\boxed{\makebox[0.72zw]{\textgt{#1}}}}} } }
+
+%円文字
+\newcommand{\ctext}[1]{\mbox{\raise0.2ex\hbox{\textcircled{\scriptsize{#1}}}}}
+%色
+\newcommand{\red}[1]{{\color{red}#1}}
+\newcommand{\blue}[1]{{\color{blue}#1}}
+\newcommand{\green}[1]{{\color{green}#1}}
+\newcommand{\yellow}[1]{{\color{yellow}#1}}
+
+%%%%%%%%%%%%%%%%%%%画像・グラフ%%%%%%%%%%%%%%%%%%%%%%
+
+%画像のPATH（画像が入っているフォルダ）
+%\graphicspath{{./img/}}
+\makeatletter
+%ファイルのPATH（inputコマンドを使うとき）
+\providecommand*{\input@path}{}
+\g@addto@macro\input@path{{./files/}}% append
+\makeatother
+%脚注をつけたいときに使うパッケージ（使用方法は検索）
+\usepackage{threeparttable}
+%画像の読み出し
+%\fig{キャプション}{ラベル}{縮小率（半分なら0.5など）}{画像のURL}
+
+\newcommand{\fig}[4]{\begin{figure}[H]\centering\includegraphics[scale=#3]{#4}\caption{#1}\label{#2}\end{figure}}
+
+%表の書き出し
+%\tab{キャプション}{ラベル}{カラムのデータの位置指定（cccなど）}{表の内容}
+\usepackage{multirow}
+\newcommand{\tab}[4]{\begin{table}[H]\centering\caption{#1}\label{#2}\begin{tabular}{#3}#4\end{tabular}\end{table}}
+
+%%%%%%%%%%%%%%%%%%%%%%%数式%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%数式を書く
+%\eq{数式}{ラベル}
+\newcommand{\eq}[2]{\begin{equation}#1\label{#2}\end{equation}}
+%displaystyle
+\newcommand{\ds}{\displaystyle}
+
+%数式を複数行書く
+%\alg{数式}{ラベル}
+\newcommand{\alg}[2]{\begin{align}#1\label{#2}\end{align}}
+\newcommand{\algg}[1]{\begin{align*}#1\end{align*}}
+
+%定義の矢印など（undersetにすれば下になる）
+\newcommand{\defarrow}{\overset{\text{def}}{\Longleftrightarrow}}
+\newcommand{\defeq}{\overset{\text{def}}{=}}
+\newcommand{\defeqq}{\overset{\text{def}}{\equiv}}
+
+%関数名の定義
+%arcsin，arccos，arctanの表記（Physicsパッケージとの互換性あり）
+\DeclareMathOperator{\Asin}{Sin^{-1}}
+\DeclareMathOperator{\Acos}{Cos^{-1}}
+\DeclareMathOperator{\Atan}{Tan^{-1}}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\Sinc}{Sinc}
+
+%ローマン体でgrad，div，rotを書くためのもの
+\DeclareMathOperator{\rgrad}{grad}
+\DeclareMathOperator{\rdiv}{div}
+\DeclareMathOperator{\rrot}{rot}
+
+%行列
+%()の行列 \pmt{1&2&3\\4&5&6}のように使う
+\newcommand{\pmt}[1]{\begin{pmatrix}#1\end{pmatrix}}
+%[]の行列 \bmt{1&2&3\\4&5&6}のように使う
+\newcommand{\bmt}[1]{\begin{bmatrix}#1\end{bmatrix}}
+%||の行列 \vmt{1&2&3\\4&5&6}のように使う
+\newcommand{\vmt}[1]{\begin{vmatrix}#1\end{vmatrix}}
+
+%集合
+\newcommand{\relmiddle}[1]{\mathrel{} \middle#1\mathrel{}}
+\newcommand{\md}{\relmiddle{|}}
+
+%行列の中身が一般的なときに簡単に表すやつ．\general{b}{i}{j}{m}{n}のように使用
+\newcommand{\general}[5]{#1_{11} & \cdots & #1_{1#3} & \cdots & #1_{1#5}\\\vdots & \ddots &        &        & \vdots \\#1_{#2 1} &        & #1_{#2 #3} &        & #1_{#2 #4} \\\vdots &        &        & \ddots & \vdots \\#1_{#4 1} & \cdots & #1_{#4#3} & \cdots & #1_{#4#5}}
+
+%ブロック行列を書きたいときに使うやつ（横向きの線は\hdashlineを使用）
+%\blockbmt{ccc}{1&2&3\\4&5&6}のように使う
+\newcommand{\blockpmt}[2]{\left(\begin{array}{#1}#2 \end{array}\right)}
+\newcommand{\blockbmt}[2]{\left[\begin{array}{#1}#2 \end{array}\right]}
+\newcommand{\blockmbmt}[2]{\left|\begin{array}{#1}#2 \end{array}\right|}
+
+%複数の式をまとめて書く時（連立方程式とか）
+%単純に行で分けて書く   \ar{中身}
+\newcommand{\ar}[1]{\renewcommand{\arraystretch}{1.5}\begin{array}{c}\ds #1\end{array}\renewcommand{\arraystretch}{1}}
+%空白の大きさを指定する（n倍なら，\Ar{n}{中身}）
+\newcommand{\Ar}[2]{\renewcommand{\arraystretch}{#1}\begin{array}{c}\ds #2\end{array}\renewcommand{\arraystretch}{1}}
+%列の数や位置を指定する（場合分けの理由などを書くときに便利） \arr{ll}{中身}
+\newcommand{\arr}[2]{\renewcommand{\arraystretch}{1.5}\begin{array}{#1}\ds #2\end{array}\renewcommand{\arraystretch}{1}}
+%列の数や位置を指定し，さらに空白の大きさも指定する \Arr{ll}{n}{中身}
+\newcommand{\Arr}[3]{\renewcommand{\arraystretch}{#2}\begin{array}{#1}\ds #3\end{array}\renewcommand{\arraystretch}{1}}
+
+%微分記号など
+\newcommand{\rmd}[2]{\frac{\textrm{d}#1}{\textrm{d}#2}}
+\newcommand{\rmdd}[2]{\frac{\textrm{d}^2#1}{\textrm{d}#2^2}}
+\newcommand{\ptd}[2]{\frac{\partial#1}{\partial#2}}
+\newcommand{\ptdd}[2]{\frac{\partial^2#1}{\partial#2^2}}
+\newcommand{\dd}{\d}
+\renewcommand{\d}{\mathrm{d}}
+\newcommand{\e}{\mathrm{e}}
+
+%%%%%%%%%%%%%%%%%%%%%自然科学%%%%%%%%%%%%%%%%%%%%%%%
+
+%単位
+\newcommand{\ut}[1]{\;\mbox{$\mathrm{#1}$}}
+%セルシウス度（\ut{\C}と使用する）
+\newcommand{\C}{\mbox{$^\circ$}C}
+%有効数字
+\newcommand{\signi}[2]{\mbox{$#1 \times 10^{#2}$}}
+
+%%%%%%%%%%%%%%%%%%%%%%tikz%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%読み込み
+\usepackage{tikz}
+\usetikzlibrary{intersections,calc,arrows.meta}
+\usepackage{pgfplots}
+\usepackage{siunitx}
+\usepackage{float}
+\usepackage{circuitikz}
+
+%グラフに関する設定
+\def\axisdefaultwidth{8cm}
+\def\axisdefaultheight{8cm}
+\tikzset{% スタイルの作成
+  pointtype triangle/.style={mark=triangle*,mark size=4pt},
+  every mark/.style={fill=black,solid}
+}
+\pgfplotsset{% グラフ全体の見た目の設定
+  compat=1.17,
+  major tick length=0.2cm,
+  minor tick length=0.1cm,
+  every axis/.style={semithick},
+  tick style={semithick,black},
+}
+
+
+%%%%%%%%%%%%%%%%%%簡単なフォント操作%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\rm}[1]{\mathrm{#1}}
+\renewcommand{\bf}[1]{\textbf{#1}}
+\renewcommand{\sf}[1]{\textsf{#1}}
+\renewcommand{\tt}[1]{\texttt{#1}}
+\renewcommand{\it}[1]{\textit{#1}}
+\newcommand{\bb}[1]{\mathbb{#1}}
+
+%%%%%%%%%%%%%%%%%%%セクション番号%%%%%%%%%%%%%%%%%%%%
+
+%式のラベル
+%かっこ付き
+\newcommand{\reff}[1]{(\ref{#1})}
+%(1)式
+\newcommand{\eqreff}[1]{(\ref{#1})式}
+%図1
+\newcommand{\figreff}[1]{図\ref{#1}}
+%表1
+\newcommand{\tabreff}[1]{表\ref{#1}}
+
+%数式番号を章番号ごとに 例：(1.1)
+%\renewcommand{\theequation}{\thesection.\arabic{equation}}\makeatletter\@addtoreset{equation}{section}\makeatother
+
+
+%末尾に[section]をつけたら章ごとの番号になる．例：\newtheorem{theorem}{定理}[section]
+\theoremstyle{definition}
+\newtheorem{theorem}{\textgt{定理}}%[chapter]
+\newtheorem*{theorem*}{\gt{定理}}
+\theoremstyle{definition}
+\newtheorem{definition}{\textgt{定義}}%[chapter]
+\newtheorem*{definition*}{\gt{定義}}
+\theoremstyle{definition}
+\newtheorem{question}{\textgt{問}}%[chapter]
+\newtheorem*{question*}{\gt{問}}
+\theoremstyle{definition}
+\newtheorem{practice}{\textgt{演習}}%[chapter]
+\newtheorem*{practice*}{\gt{演習}}
+\theoremstyle{definition}
+\newtheorem{example}{\textgt{例}}%[chapter]
+\newtheorem*{example*}{\gt{例}}
+\renewcommand{\proofname}{\gt{証明}}
+\theoremstyle{definition}
+\newtheorem{answer}{\textgt{解答}}%[chapter]
+\newtheorem*{answer*}{\gt{解答}}
+
+%定理（囲みなし）
+\newcommand{\thm}[1]{\begin{theorem}#1\end{theorem}}
+%定義（囲みなし）
+\newcommand{\defi}[1]{\begin{definition}#1\end{definition}}
+%問題（囲みなし）
+\newcommand{\que}[1]{\begin{question}#1\end{question}}
+%例（囲みなし）
+\newcommand{\ex}[1]{\begin{example}#1\end{example}}
+%演習（囲みなし）
+\newcommand{\prc}[1]{\begin{practice}#1\end{practice}}
+%証明（囲みなし）
+\newcommand{\prf}[1]{\begin{proof}#1\end{proof}}
+%解答（囲みなし）
+\newcommand{\ans}[1]{\begin{answer*}#1\end{answer*}}
+
+%囲み
+\newcommand{\srn}[1]{\begin{screen}#1\end{screen}\par}
+%定理（囲み）
+\newcommand{\Thm}[1]{\begin{screen}\begin{theorem}#1\end{theorem}\end{screen}\par}
+%定義（囲み）
+\newcommand{\Defi}[1]{\begin{screen}\begin{definition}#1\end{definition}\end{screen}\par}
+%問題（囲み）
+\newcommand{\Que}[1]{\begin{screen}\begin{question}#1\end{question}\end{screen}\par}
+%例（囲み）
+\newcommand{\Ex}[1]{\begin{screen}\begin{example}#1\end{example}\end{screen}\par}
+%演習（囲み）
+\newcommand{\Prc}[1]{\begin{screen}\begin{practice}#1\end{practice}\end{screen}\par}
+%証明（囲み）
+\newcommand{\Prf}[1]{\begin{screen}\begin{proof}#1\end{proof}\end{screen}\par}
+%解答（囲み）
+\newcommand{\Ans}[1]{\begin{screen}\begin{answer*}#1\end{answer*}\end{screen}\par}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%箇条書き%%%%%%%%%%%%%%%%%%%%%%%
+
+%renewcommandで「labelenumi」を使う場合「arki{箇条書きの中身}」，renewcommandで「labelenumii」を使う場合「arkii{箇条書きの中身}」のように使います．
+%ark: (1)(2)(3)...
+%apk: (a)(b)(c)...
+%rmk: (i)(ii)(iii)...
+%arab: 1.,2.,3.,...
+%alph: a.,b.,c.,...
+%roman: i.,ii.,iii.,...
+\newcommand{\arki}[1]{\begin{enumerate} \renewcommand{\labelenumi}{(\makebox[0.7zw]{\arabic{enumi}})}#1\end{enumerate}}
+\newcommand{\arkii}[1]{\begin{enumerate} \renewcommand{\labelenumii}{(\makebox[0.7zw]{\arabic{enumii}})}#1\end{enumerate}}
+\newcommand{\arkiii}[1]{\begin{enumerate} \renewcommand{\labelenumiii}{(\makebox[0.7zw]{\arabic{enumiii}})}#1\end{enumerate}}
+\newcommand{\arkiv}[1]{\begin{enumerate} \renewcommand{\labelenumiv}{(\makebox[0.7zw]{\arabic{enumiv}})}#1\end{enumerate}}
+
+\newcommand{\apki}[1]{\begin{enumerate} \renewcommand{\labelenumi}{(\makebox[0.7zw]{\alph{enumi}})}#1\end{enumerate}}
+\newcommand{\apkii}[1]{\begin{enumerate} \renewcommand{\labelenumii}{(\makebox[0.7zw]{\alph{enumii}})}#1\end{enumerate}}
+\newcommand{\apkiii}[1]{\begin{enumerate} \renewcommand{\labelenumiii}{(\makebox[0.7zw]{\alph{enumiii}})}#1\end{enumerate}}
+\newcommand{\apkiv}[1]{\begin{enumerate} \renewcommand{\labelenumiv}{(\makebox[0.7zw]{\alph{enumiv}})}#1\end{enumerate}}
+
+\newcommand{\rmki}[1]{\begin{enumerate} \renewcommand{\labelenumi}{(\makebox[0.7zw]{\roman{enumi}})}#1\end{enumerate}}
+\newcommand{\rmkii}[1]{\begin{enumerate} \renewcommand{\labelenumii}{(\makebox[0.7zw]{\roman{enumii}})}#1\end{enumerate}}
+\newcommand{\rmkiii}[1]{\begin{enumerate} \renewcommand{\labelenumiii}{(\makebox[0.7zw]{\roman{enumiii}})}#1\end{enumerate}}
+\newcommand{\rmkiv}[1]{\begin{enumerate} \renewcommand{\labelenumiv}{(\makebox[0.7zw]{\roman{enumiv}})}#1\end{enumerate}}
+
+
+\newcommand{\ari}[1]{\begin{enumerate}\renewcommand{\labelenumi}{\makebox[0.7zw]{\arabic{enumi}}.}#1\end{enumerate}}
+\newcommand{\arii}[1]{\begin{enumerate}\renewcommand{\labelenumii}{\makebox[0.7zw]{\arabic{enumii}}.}#1\end{enumerate}}
+\newcommand{\ariii}[1]{\begin{enumerate}\renewcommand{\labelenumiii}{\makebox[0.7zw]{\arabic{enumiii}}.}#1\end{enumerate}}
+\newcommand{\ariv}[1]{\begin{enumerate}\renewcommand{\labelenumiv}{\makebox[0.7zw]{\arabic{enumiv}}.}#1\end{enumerate}}
+
+\newcommand{\api}[1]{\begin{enumerate}\renewcommand{\labelenumi}{\makebox[0.7zw]{\alph{enumi}}.}#1\end{enumerate}}
+\newcommand{\apii}[1]{\begin{enumerate}\renewcommand{\labelenumii}{\makebox[0.7zw]{\alph{enumii}}.}#1\end{enumerate}}
+\newcommand{\apiii}[1]{\begin{enumerate}\renewcommand{\labelenumiii}{\makebox[0.7zw]{\alph{enumiii}}.}#1\end{enumerate}}
+\newcommand{\apiv}[1]{\begin{enumerate}\renewcommand{\labelenumiv}{\makebox[0.7zw]{\alph{enumiv}}.}#1\end{enumerate}}
+
+\newcommand{\rmi}[1]{\begin{enumerate}\renewcommand{\labelenumi}{\makebox[0.7zw]{\roman{enumi}}.}#1\end{enumerate}}
+\newcommand{\rmii}[1]{\begin{enumerate}\renewcommand{\labelenumii}{\makebox[0.7zw]{\roman{enumii}}.}#1\end{enumerate}}
+\newcommand{\rmiii}[1]{\begin{enumerate}\renewcommand{\labelenumiii}{\makebox[0.7zw]{\roman{enumiii}}.}#1\end{enumerate}}
+\newcommand{\rmiv}[1]{\begin{enumerate}\renewcommand{\labelenumiv}{\makebox[0.7zw]{\roman{enumiv}}.}#1\end{enumerate}}
+
+\newcommand{\eni}[2]{\begin{enumerate}\renewcommand{\labelenumi}{#1}#2\end{enumerate}}
+\newcommand{\enii}[2]{\begin{enumerate}\renewcommand{\labelenumii}{#1}#2\end{enumerate}}
+\newcommand{\eniii}[2]{\begin{enumerate}\renewcommand{\labelenumiii}{#1}#2\end{enumerate}}
+\newcommand{\eniv}[2]{\begin{enumerate}\renewcommand{\labelenumiv}{#1}#2\end{enumerate}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

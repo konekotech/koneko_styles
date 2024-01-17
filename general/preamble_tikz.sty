@@ -1,0 +1,20 @@
+%%%%%%%%%%%%%%%%%%%%%%tikz%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%読み込み
+\usetikzlibrary{intersections,calc,arrows.meta}
+\usepackage{pgfplots, siunitx, float, circuitikz}
+
+%グラフに関する設定
+\def\axisdefaultwidth{8cm}
+\def\axisdefaultheight{8cm}
+\tikzset{% スタイルの作成
+  pointtype triangle/.style={mark=triangle*,mark size=4pt},
+  every mark/.style={fill=black,solid}
+}
+\pgfplotsset{% グラフ全体の見た目の設定
+  compat=1.17,
+  major tick length=0.2cm,
+  minor tick length=0.1cm,
+  every axis/.style={semithick},
+  tick style={semithick,black},
+}
