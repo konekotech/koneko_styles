@@ -25,4 +25,25 @@
 \renewcommand{\thefootnote}{\dagger\arabic{footnote}}
 
 
-\newcommand{\oreillymaketitle}[1]{\maketitle\newpage\thispagestyle{customfooter}\vspace*{21cm}\noindent\copyright #1 All rights reserved.\\\\本書で使用するシステム名、製品名は、いずれも各社の商標、または登録商標です。\\なお、本文中では${}^{\rm{TM}}$、\textregistered、\copyright マークは省略している場合もあります。\newpage\pagestyle{oreilly-style}\pagenumbering{roman}\setcounter{page}{3}\setcounter{tocdepth}{2}\tableofcontents\clearpage\pagenumbering{arabic}\setcounter{page}{1}}
+\newcommand{\oreillymaketitle}[1]{
+    \maketitle
+    \newpage
+    \thispagestyle{customfooter}
+    \vspace*{21cm}
+    \noindent\copyright #1 All rights reserved.\\\\本書で使用するシステム名、製品名は、いずれも各社の商標、または登録商標です。\\なお、本文中では${}^{\rm{TM}}$、\textregistered、\copyright マークは省略している場合もあります。
+    \newpage
+    \pagestyle{oreilly-style}
+    \pagenumbering{roman}
+    \setcounter{page}{3}
+    \setcounter{tocdepth}{2}
+    \tableofcontents
+    \ifodd\value{page}
+        \clearpage
+        \pagenumbering{arabic}
+        \setcounter{page}{0}
+    \else
+        \clearpage
+        \pagenumbering{arabic}
+        \setcounter{page}{1}
+    \fi
+}
