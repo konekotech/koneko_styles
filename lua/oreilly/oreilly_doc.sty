@@ -48,3 +48,26 @@
         \setcounter{page}{1}
     \fi
 }
+
+
+\newcommand{\oreillymaketitlewithoutrights}{
+    \setmainfont{CenturyOldstBT}
+    \maketitle
+    \newpage
+    \pagestyle{oreilly-style}
+    \pagenumbering{roman}
+    \setcounter{page}{3}
+    \setcounter{tocdepth}{2}
+    \setmainfont{cmr10}
+    \tableofcontents
+    \ifodd\value{page}
+        \clearpage
+        \pagenumbering{arabic}
+        \setcounter{page}{0}
+    \else
+        \clearpage
+        \pagenumbering{arabic}
+        \setcounter{page}{1}
+    \fi
+}
+
